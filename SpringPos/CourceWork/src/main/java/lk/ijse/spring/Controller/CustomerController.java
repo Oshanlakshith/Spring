@@ -18,12 +18,29 @@ public class CustomerController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getAllCustomer() {
-        return new ResponseUtil(200,"Ok",customerService.getAllCustomer());
+        return new ResponseUtil(200, "Ok", customerService.getAllCustomer());
     }
+
     @ResponseStatus(HttpStatus.CREATED) //201
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil saveCustomer(@ModelAttribute CustomerDTO customer){
+    public ResponseUtil saveCustomer(@ModelAttribute CustomerDTO customer) {
         customerService.saveCustomer(customer);
-        return new ResponseUtil(200,"Save",null);
+        return new ResponseUtil(200, "SAVE", null);
+    }
+
+    @DeleteMapping
+    public ResponseUtil deleteCustomer(String id) {
+        customerService.deleteCustomer(id);
+        return new ResponseUtil(200, "DELETE", null);
+    }
+
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil updateCustomer(@RequestBody CustomerDTO customer) {
+        customerService.updateCustomer(customer);
+        return new ResponseUtil(200, "UPDATE", null);
+    }
+    @GetMapping(path = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil searchCustomer(@PathVariable String id) {
+        return new ResponseUtil(200,"Ok",customerService.searchCustomer(id));
     }
 }

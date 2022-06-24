@@ -134,22 +134,22 @@
 <!--Dashboard Content End-->
 
 <!--Customer Manage Content Start-->
-<section class="container-fluid mt-3"  id="customerContent">
+<section class="container-fluid mt-3" id="customerContent">
     <!--    customer save-->
     <div class="row mt-5">
-    <div class="col-3">
-    <div class="row mt-3">
-        <div class="shadow-sm pt-3 pb-5 px-3 py-3 mt-2">
-            <h1 class="h1 mb-3">Customer Manage</h1>
-            <div class="mb-3">
-                <label class="form-label" for="srcCusID">Search Customer</label>
-                <input class="form-control" id="SRID" placeholder="Customer ID, NIC, Name" type="text">
+        <div class="col-3">
+            <div class="row mt-3">
+                <div class="shadow-sm pt-3 pb-5 px-3 py-3 mt-2">
+                    <h1 class="h1 mb-3">Customer Manage</h1>
+                    <div class="mb-3">
+                        <label class="form-label" for="srcCusID">Search Customer</label>
+                        <input class="form-control" id="SRID" placeholder="Customer ID, NIC, Name" type="text">
+                    </div>
+                    <button id="btnSearchCustomer" class="btn btn-primary">Search</button>
+                </div>
             </div>
-            <button class="btn btn-primary">Search</button>
         </div>
-    </div>
-    </div>
-    <div class="col-md-6">
+        <div class="col-md-6">
             <form id="customerForm">
                 <div class="mb-3">
                     <label class="form-label" for="cusID">Customer ID</label>
@@ -177,26 +177,26 @@
                     <button class="btn btn-success" id="btnGetAllCustomers" type="button">Get All</button>
                 </div>
             </form>
-    </div>
-            <table class="table table-bordered table-hover">
-                <thead class="bg-danger text-white">
-                <tr>
-                    <th>Customer ID</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Salary</th>
-                </tr>
-                </thead>
-                <tbody id="tblCustomerJson">
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                </tbody>
-            </table>
         </div>
+        <table class="table table-bordered table-hover">
+            <thead class="bg-danger text-white">
+            <tr>
+                <th>Customer ID</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Salary</th>
+            </tr>
+            </thead>
+            <tbody id="tblCustomerJson">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </section>
 
 <!--Customer Manage Content End-->
@@ -385,7 +385,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group text-right">
-                                    <button class="btn btn-danger col-12 col-sm-auto mt-1" id="btnAddToTable" type="button">
+                                    <button class="btn btn-danger col-12 col-sm-auto mt-1" id="btnAddToTable"
+                                            type="button">
                                         Add Item
                                     </button>
                                 </div>
@@ -476,48 +477,138 @@
 <script>
 
     // hide all content
-    $("#dashboardContent").css("display","block");
-    $("#customerContent").css("display","none");
-    $("#itemContent").css("display","none");
-    $("#orderContent").css("display","none");
+    $("#dashboardContent").css("display", "block");
+    $("#customerContent").css("display", "none");
+    $("#itemContent").css("display", "none");
+    $("#orderContent").css("display", "none");
 
 
-    $("#linkCustomer").click(function (){
-        $("#customerContent").css("display","block");
-        $("#dashboardContent").css("display","none");
-        $("#itemContent").css("display","none");
-        $("#orderContent").css("display","none");
-
-    });
-
-    $("#linkItem").click(function (){
-        $("#itemContent").css("display","block");
-        $("#customerContent").css("display","none");
-        $("#dashboardContent").css("display","none");
-        $("#orderContent").css("display","none");
+    $("#linkCustomer").click(function () {
+        $("#customerContent").css("display", "block");
+        $("#dashboardContent").css("display", "none");
+        $("#itemContent").css("display", "none");
+        $("#orderContent").css("display", "none");
 
     });
 
-
-    $("#linkHome").click(function (){
-        $("#dashboardContent").css("display","block");
-        $("#itemContent").css("display","none");
-        $("#customerContent").css("display","none");
-        $("#orderContent").css("display","none");
-    });
-
-    $(".link-Order").click(function (){
-        $("#orderContent").css("display","block");
-        $("#dashboardContent").css("display","none");
-        $("#itemContent").css("display","none");
-        $("#customerContent").css("display","none");
+    $("#linkItem").click(function () {
+        $("#itemContent").css("display", "block");
+        $("#customerContent").css("display", "none");
+        $("#dashboardContent").css("display", "none");
+        $("#orderContent").css("display", "none");
 
     });
 
-    var url="http://localhost:8080/CourceWork_war_exploded/customer";
-        loadAllCustomers();
 
+    $("#linkHome").click(function () {
+        $("#dashboardContent").css("display", "block");
+        $("#itemContent").css("display", "none");
+        $("#customerContent").css("display", "none");
+        $("#orderContent").css("display", "none");
+    });
 
+    $(".link-Order").click(function () {
+        $("#orderContent").css("display", "block");
+        $("#dashboardContent").css("display", "none");
+        $("#itemContent").css("display", "none");
+        $("#customerContent").css("display", "none");
+
+    });
+
+    var url = "http://localhost:8080/CourceWork_war_exploded/customer";
+    loadAllCustomers();
+    //====================save customer======================
+
+    $("#btnSaveCustomer").click(function () {
+        saveCustomer();
+    });
+
+    $("#btnUpdateCustomer").click(function () {
+        updateCustomer();
+    });
+    $("#btnDeleteCustomer").click(function () {
+        deleteCustomer();
+    });
+
+    $("#cusID").on("keypress", function (e) {
+        if (e.key == "Enter") {
+            searchCustomer();
+        }
+    });
+    $("#btnSearchCustomer").on("keypress", function (e) {
+        if (e.key == "Enter") {
+            searchCustomer();
+        }
+    });
+
+    function saveCustomer() {
+        var serialize = $("#customerForm").serialize();
+        $.ajax({
+            url: url,
+            method: "POST",
+            data: serialize,
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Successfullly Customer Save");
+                    loadAllCustomers();
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    //=============Update Customer=================
+    function updateCustomer() {
+        var cusOb = {
+            id: $("#cusID").val(),
+            name: $("#cusName").val(),
+            address: $("#cusAddress").val(),
+            salary: $("#cusSalary").val()
+        }
+
+        $.ajax({
+            url: url,
+            method: "PUT",
+            contentType: "application/json", //You should state request's content type using MIME types
+            data: JSON.stringify(cusOb), // format js object to valid json string
+            success: function (res) {
+                if (res.code == 200) { // process is  ok
+                    alert("Successfully Updated");
+                    loadAllCustomers();
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    //=====================DeleteCustomer==========
+    function deleteCustomer() {
+        // Get the customer id
+        let customerID = $("#cusID").val();
+
+        // initiate the request
+        $.ajax({
+            url: url + "?id=" + customerID,// viya query string
+            method: "DELETE",
+            //data:data,// application/x-www-form-urlencoded
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Customer Successfully Deleted");
+                    loadAllCustomers();
+                    clearForm();
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    //==============loadCustomer===================================
     function loadAllCustomers() {
         $("#tblCustomerJson").empty();
         $.ajax({
@@ -537,9 +628,49 @@
                 alert(ob.responseJSON.message);
             }
         });
-
     }
 
+    //Bind click events to the table rows
+    function bindClickEvents() {
+        $("#tblCustomerJson>tr").click(function () {
+            //Get values from the selected row
+            let id = $(this).children().eq(0).text();
+            let name = $(this).children().eq(1).text();
+            let address = $(this).children().eq(2).text();
+            let salary = $(this).children().eq(3).text();
+
+            //Set values to the text-fields
+            $("#cusID").val(id);
+            $("#cusName").val(name);
+            $("#cusAddress").val(address);
+            $("#cusSalary").val(salary);
+        });
+    }
+
+    //============Search Customer====================
+    function searchCustomer() {
+        //var customerID=$("#cusID").val();
+        var customerID = $("#cusID").val();
+
+        $.ajax({
+            url: url + "/" + customerID,
+            method: "GET",
+            success: function (res) {
+                if (res.code = 200) {
+                    var customer = res.data;
+                    $("#cusID").val(customer.id);
+                    $("#cusName").val(customer.name);
+                    $("#cusAddress").val(customer.address);
+                    $("#cusSalary").val(customer.salary);
+                } else {
+                    clearForm();
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
 
 </script>
 
