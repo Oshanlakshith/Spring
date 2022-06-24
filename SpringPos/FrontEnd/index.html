@@ -217,22 +217,30 @@
             </div>
         </div>
         <div class="col-12 col-md-5">
-            <div class="mb-3">
-                <label class="form-label" for="itemCode">Item Code</label>
-                <input class="form-control" id="itemCode" placeholder="Item Code" type="text">
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="itemName">Item Name</label>
-                <input class="form-control" id="itemName" placeholder="Item Name" type="text">
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="itemQty">Item Qty</label>
-                <input class="form-control" id="itemQty" placeholder="Item Qty" type="text">
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="itemPrice">Item Price</label>
-                <input class="form-control" id="itemPrice" placeholder="Item Price" type="text">
-            </div>
+            <form id="itemForm">
+                <div class="mb-3">
+                    <label class="form-label" for="itemCode">Item Code</label>
+                    <input class="form-control" name="icode" id="itemCode" placeholder="Item Code" type="text">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="itemName">Item Name</label>
+                    <input class="form-control" name="icode" id="itemName" placeholder="Item Name" type="text">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="itemQty">Item Qty</label>
+                    <input class="form-control" name="iQty" id="itemQty" placeholder="Item Qty" type="text">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="itemPrice">Item Price</label>
+                    <input class="form-control" name="iprice" id="itemPrice" placeholder="Item Price" type="text">
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary" id="btnSaveItem" type="button">Save</button>
+                    <button class="btn btn-warning" id="btnUpdateItem" type="button">Update</button>
+                    <button class="btn btn-danger" id="btnDeleteItem" type="button">Delete</button>
+                    <button class="btn btn-success" id="btnGetAllItem" type="button">Get All</button>
+                </div>
+            </form>
         </div>
     </section>
     <section class="row mt-4">
@@ -246,18 +254,12 @@
                     <th>Item Price</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="itmTable">
                 <tr>
-                    <td>I001</td>
-                    <td>Lux</td>
-                    <td>200</td>
-                    <td>69</td>
-                </tr>
-                <tr>
-                    <td>I002</td>
-                    <td>Signal</td>
-                    <td>140</td>
-                    <td>120</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>
