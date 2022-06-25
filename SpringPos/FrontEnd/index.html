@@ -212,8 +212,6 @@
                     <input class="form-control" id="srcCusID" placeholder="Customer ID, NIC, Name" type="text">
                 </div>
                 <button class="btn btn-primary">Search</button>
-                <button class="btn btn-danger">Delete</button>
-                <button class="btn btn-success">Save or Update</button>
             </div>
         </div>
         <div class="col-12 col-md-5">
@@ -224,11 +222,11 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="itemName">Item Name</label>
-                    <input class="form-control" name="icode" id="itemName" placeholder="Item Name" type="text">
+                    <input class="form-control" name="iname" id="itemName" placeholder="Item Name" type="text">
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="itemQty">Item Qty</label>
-                    <input class="form-control" name="iQty" id="itemQty" placeholder="Item Qty" type="text">
+                    <input class="form-control" name="iqty" id="itemQty" placeholder="Item Qty" type="text">
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="itemPrice">Item Price</label>
@@ -254,7 +252,7 @@
                     <th>Item Price</th>
                 </tr>
                 </thead>
-                <tbody id="itmTable">
+                <tbody id="itemTable">
                 <tr>
                     <td></td>
                     <td></td>
@@ -516,8 +514,11 @@
         $("#customerContent").css("display", "none");
 
     });
+</script>
 
+<script>
     var url = "http://localhost:8080/CourceWork_war_exploded/customer";
+
     loadAllCustomers();
     //====================save customer======================
 
@@ -632,49 +633,161 @@
         });
     }
 
-    //Bind click events to the table rows
-    function bindClickEvents() {
-        $("#tblCustomerJson>tr").click(function () {
-            //Get values from the selected row
-            let id = $(this).children().eq(0).text();
-            let name = $(this).children().eq(1).text();
-            let address = $(this).children().eq(2).text();
-            let salary = $(this).children().eq(3).text();
+        //============Search Customer====================
+        function searchCustomer() {
+            //var customerID=$("#cusID").val();
+            var customerID = $("#cusID").val();
 
-            //Set values to the text-fields
-            $("#cusID").val(id);
-            $("#cusName").val(name);
-            $("#cusAddress").val(address);
-            $("#cusSalary").val(salary);
-        });
-    }
-
-    //============Search Customer====================
-    function searchCustomer() {
-        //var customerID=$("#cusID").val();
-        var customerID = $("#cusID").val();
-
-        $.ajax({
-            url: url + "/" + customerID,
-            method: "GET",
-            success: function (res) {
-                if (res.code = 200) {
-                    var customer = res.data;
-                    $("#cusID").val(customer.id);
-                    $("#cusName").val(customer.name);
-                    $("#cusAddress").val(customer.address);
-                    $("#cusSalary").val(customer.salary);
-                } else {
-                    clearForm();
+            $.ajax({
+                url: url + "/" + customerID,
+                method: "GET",
+                success: function (res) {
+                    if (res.code = 200) {
+                        var customer = res.data;
+                        $("#cusID").val(customer.id);
+                        $("#cusName").val(customer.name);
+                        $("#cusAddress").val(customer.address);
+                        $("#cusSalary").val(customer.salary);
+                    } else {
+                        clearForm();
+                    }
+                },
+                error: function (ob) {
+                    alert(ob.responseJSON.message);
                 }
-            },
-            error: function (ob) {
-                alert(ob.responseJSON.message);
-            }
+            });
+        }
+
+        //============Item Form==============================
+        var itemurl = "http://localhost:8080/CourceWork_war_exploded/item";
+
+        loadAllItems();
+
+        $("#btnSaveItem").click(function () {
+            saveItem();
         });
-    }
+        $("#btnUpdateItem").click(function () {
+            updateItem();
+        });
+        $("#btnDeleteItem").click(function () {
+            deleteItem();
+        });
 
+        function loadAllItems() {
+            $("#itemTable").empty();
+            $.ajax({
+                url: itemurl,
+                method: "GET",
+                // dataType:"json", // please convert the response into JSON
+                success: function (resp) {
+
+                    for (const item of resp.data) {
+                        let row = `<tr><td>${item.icode}</td><td>${item.iname}</td><td>${item.iqty}</td><td>${item.iprice}</td></tr>`;
+                        $("#itemTable").append(row);
+                    }
+                    bindClickEventsItem();
+                },
+                error: function (ob) {
+                    alert(ob.responseJSON.message);
+                }
+            });
+        }
+        function saveItem() {
+            var serialize = $("#itemForm").serialize();
+            $.ajax({
+                url: itemurl,
+                method: "POST",
+                data: serialize,
+                success: function (res) {
+                    if (res.code == 200) {
+                        alert("Successfullly Item Save");
+                        loadAllItems();
+                    }
+                },
+                error: function (ob) {
+                    alert(ob.responseJSON.message);
+                }
+            });
+        }
+
+        function updateItem() {
+            var itemOb = {
+                code: $("#itemCode").val(),
+                name: $("#itemName").val(),
+                qty: $("#itemQty").val(),
+                price: $("#itemPrice").val()
+            }
+
+            $.ajax({
+                url: itemurl,
+                method: "PUT",
+                contentType: "application/json", //You should state request's content type using MIME types
+                data: JSON.stringify(itemOb), // format js object to valid json string
+                success: function (res) {
+                    if (res.code == 200) { // process is  ok
+                        alert("Successfully Updated");
+                        loadAllItems();
+                    }
+                },
+                error: function (ob) {
+                    alert(ob.responseJSON.message);
+                }
+            });
+        }
+
+        function deleteItem() {
+            // Get the customer id
+            let itemcode = $("#itemCode").val();
+
+            // initiate the request
+            $.ajax({
+                url: itemurl + "?id=" + itemcode,// viya query string
+                method: "DELETE",
+                //data:data,// application/x-www-form-urlencoded
+                success: function (res) {
+                    if (res.code == 200) {
+                        alert("Item Successfully Deleted");
+                        loadAllItems();
+                    }
+                },
+                error: function (ob) {
+                    alert(ob.responseJSON.message);
+                }
+            });
+
+        }
+
+        //Bind click events to the table rows
+        function bindClickEvents() {
+            $("#tblCustomerJson>tr").click(function () {
+                //Get values from the selected row
+                let id = $(this).children().eq(0).text();
+                let name = $(this).children().eq(1).text();
+                let address = $(this).children().eq(2).text();
+                let salary = $(this).children().eq(3).text();
+
+                //Set values to the text-fields
+                $("#cusID").val(id);
+                $("#cusName").val(name);
+                $("#cusAddress").val(address);
+                $("#cusSalary").val(salary);
+            });
+        }
+            function bindClickEventsItem() {
+                $("#itemTable>tr").click(function () {
+                    //Get values from the selected row
+                    let code = $(this).children().eq(0).text();
+                    let name = $(this).children().eq(1).text();
+                    let qty = $(this).children().eq(2).text();
+                    let price = $(this).children().eq(3).text();
+
+                    //Set values to the text-fields
+                    $("#itemCode").val(code);
+                    $("#itemName").val(name);
+                    $("#itemQty").val(qty);
+                    $("#itemPrice").val(price);
+                });
+            }
 </script>
-
 </body>
 </html>

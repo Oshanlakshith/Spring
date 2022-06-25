@@ -1,6 +1,5 @@
 package lk.ijse.spring.service;
 
-import lk.ijse.spring.dto.CustomerDTO;
 import lk.ijse.spring.dto.ItemDTO;
 
 import java.util.List;
@@ -12,7 +11,7 @@ public interface ItemService {
 
     public void deleteItem(String id);
 
-    CustomerDTO searchItem(String id);
+    ItemDTO searchItem(String id);
 
-    List<CustomerDTO> getAlItems();
+    List<ItemDTO> getAllItems();
 }

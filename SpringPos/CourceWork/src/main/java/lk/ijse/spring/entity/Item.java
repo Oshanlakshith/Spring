@@ -15,9 +15,9 @@ import javax.persistence.Id;
 @Entity
 public class Item {
     @Id
-    private String iicode;
+    private String icode;
     private String iname;
-    private String iQty;
+    private String iqty;
     private Double iprice;
 
 }

@@ -12,6 +12,6 @@ import lombok.ToString;
 public class ItemDTO {
     private String icode;
     private String iname;
-    private String iQty;
+    private String iqty;
     private Double iprice;
 }
