@@ -81,6 +81,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                 //Update the Item Qty
                 int newQty = od.getQty();
                 int prevQty = previous.getQty();
+                System.out.println(newQty+ ""+prevQty);
+
                 if (newQty > prevQty) {
                     int dif = newQty - prevQty;
                     item.setIqty(item.getIqty() - dif);

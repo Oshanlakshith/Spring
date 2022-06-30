@@ -44,7 +44,6 @@ public class ItemControler {
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil searchItem(@PathVariable String id) {
-        itemService.searchItem(id);
-        return new ResponseUtil(200, "SEARCH", null);
+        return new ResponseUtil(200, "SEARCH", itemService.searchItem(id));
     }
 }

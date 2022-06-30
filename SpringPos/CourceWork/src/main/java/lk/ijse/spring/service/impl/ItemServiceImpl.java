@@ -35,7 +35,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemDTO> getAllItems() {
-      return mapper.map(repo.findAll(), new TypeToken<List<ItemDTO>>() {
+        return mapper.map(repo.findAll(), new TypeToken<List<ItemDTO>>() {
         }.getType());
     }
 
@@ -62,7 +62,7 @@ public class ItemServiceImpl implements ItemService {
         if (repo.existsById(id)) {
             return mapper.map(repo.findById(id).get(), ItemDTO.class);
         } else {
-            throw new RuntimeException("Check The Item Code");
+            throw new RuntimeException("No Item For " + id + " ..!");
         }
     }
 }

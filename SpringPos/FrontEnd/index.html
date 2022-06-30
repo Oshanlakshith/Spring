@@ -535,10 +535,10 @@
             searchCustomer();
         }
     });
-    $("#orderCustomerID").on("keypress",function (e) {
-      if(e.key=="Enter"){
-       searchOrderCustomer();
-      }
+    $("#orderCustomerID").on("keypress", function (e) {
+        if (e.key == "Enter") {
+            searchOrderCustomer();
+        }
     });
 
     function saveCustomer() {
@@ -670,6 +670,12 @@
         deleteItem();
     });
 
+    $("#txtItemCode").on("keypress", function (e) {
+        if (e.key == "Enter") {
+            searchOrderItems();
+        }
+    });
+
     function loadAllItems() {
         $("#itemTable").empty();
         $.ajax({
@@ -753,6 +759,31 @@
             }
         });
 
+    }
+
+    function searchOrderItems() {
+        //var customerID=$("#cusID").val();
+
+        var itemId = $("#txtItemCode").val();
+
+        $.ajax({
+            url: itemurl + "/" + itemId,
+            method: "GET",
+            success: function (res) {
+                if (res.code = 200) {
+                    var item = res.data;
+                    $("#txtItemCode").val(item.icode);
+                    $("#txtItemDescription").val(item.iname);
+                    $("#txtQTYOnHand").val(item.iqty);
+                    $("#txtItemPrice").val(item.iprice);
+                } else {
+                    clearForm();
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
     }
 
     //================================Order form=================================
