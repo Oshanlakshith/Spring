@@ -19,6 +19,7 @@ public class PurchaseOrderController {
 
     @Autowired
     PurchaseOrderService poService;
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getAllOrders() {
         return new ResponseUtil(200, "Ok", poService.getAllOrders());
@@ -44,8 +45,8 @@ public class PurchaseOrderController {
         return new ResponseUtil(200, "Deleted", null);
     }
 
-    @GetMapping(path = "/{oid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil searchOrder(@PathVariable String oid) {
-        return new ResponseUtil(200, "Ok", poService.searchOrder(oid));
+    @GetMapping(path = "/{ocid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil searchOrderCustomer(@PathVariable String ocid) {
+        return new ResponseUtil(200, "Ok", poService.searchOrder(ocid));
     }
 }

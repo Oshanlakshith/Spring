@@ -297,16 +297,6 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Customer :</label>
-                                            <select class="form-control" id="selectCusID">
-
-                                            </select>
-                                            <span class="control-error"
-                                                  id="cus-empty-error"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
                                             <label for="txtOrderID">Customer ID</label>
                                             <input class="form-control" id="orderCustomerID">
                                         </div>
@@ -474,6 +464,7 @@
 <script src="controller/CustomerController.js"></script>
 <script src="db/DB.js"></script>
 <script src="model/CustomerDTO.js"></script>
+<script src="assets/controller/customer.js"></script>
 <script>
 
     // hide all content
@@ -520,6 +511,7 @@
     var url = "http://localhost:8080/CourceWork_war_exploded/customer";
 
     loadAllCustomers();
+    generateCustomerId();
     //====================save customer======================
 
     $("#btnSaveCustomer").click(function () {
@@ -542,6 +534,11 @@
         if (e.key == "Enter") {
             searchCustomer();
         }
+    });
+    $("#orderCustomerID").on("keypress",function (e) {
+      if(e.key=="Enter"){
+       searchOrderCustomer();
+      }
     });
 
     function saveCustomer() {
@@ -633,161 +630,189 @@
         });
     }
 
-        //============Search Customer====================
-        function searchCustomer() {
-            //var customerID=$("#cusID").val();
-            var customerID = $("#cusID").val();
+    //============Search Customer====================
+    function searchCustomer() {
+        //var customerID=$("#cusID").val();
+        var customerID = $("#cusID").val();
 
-            $.ajax({
-                url: url + "/" + customerID,
-                method: "GET",
-                success: function (res) {
-                    if (res.code = 200) {
-                        var customer = res.data;
-                        $("#cusID").val(customer.id);
-                        $("#cusName").val(customer.name);
-                        $("#cusAddress").val(customer.address);
-                        $("#cusSalary").val(customer.salary);
-                    } else {
-                        clearForm();
-                    }
-                },
-                error: function (ob) {
-                    alert(ob.responseJSON.message);
+        $.ajax({
+            url: url + "/" + customerID,
+            method: "GET",
+            success: function (res) {
+                if (res.code = 200) {
+                    var customer = res.data;
+                    $("#cusID").val(customer.id);
+                    $("#cusName").val(customer.name);
+                    $("#cusAddress").val(customer.address);
+                    $("#cusSalary").val(customer.salary);
+                } else {
+                    clearForm();
                 }
-            });
-        }
-
-        //============Item Form==============================
-        var itemurl = "http://localhost:8080/CourceWork_war_exploded/item";
-
-        loadAllItems();
-
-        $("#btnSaveItem").click(function () {
-            saveItem();
-        });
-        $("#btnUpdateItem").click(function () {
-            updateItem();
-        });
-        $("#btnDeleteItem").click(function () {
-            deleteItem();
-        });
-
-        function loadAllItems() {
-            $("#itemTable").empty();
-            $.ajax({
-                url: itemurl,
-                method: "GET",
-                // dataType:"json", // please convert the response into JSON
-                success: function (resp) {
-
-                    for (const item of resp.data) {
-                        let row = `<tr><td>${item.icode}</td><td>${item.iname}</td><td>${item.iqty}</td><td>${item.iprice}</td></tr>`;
-                        $("#itemTable").append(row);
-                    }
-                    bindClickEventsItem();
-                },
-                error: function (ob) {
-                    alert(ob.responseJSON.message);
-                }
-            });
-        }
-        function saveItem() {
-            var serialize = $("#itemForm").serialize();
-            $.ajax({
-                url: itemurl,
-                method: "POST",
-                data: serialize,
-                success: function (res) {
-                    if (res.code == 200) {
-                        alert("Successfullly Item Save");
-                        loadAllItems();
-                    }
-                },
-                error: function (ob) {
-                    alert(ob.responseJSON.message);
-                }
-            });
-        }
-
-        function updateItem() {
-            var itemOb = {
-                code: $("#itemCode").val(),
-                name: $("#itemName").val(),
-                qty: $("#itemQty").val(),
-                price: $("#itemPrice").val()
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
             }
+        });
+    }
 
-            $.ajax({
-                url: itemurl,
-                method: "PUT",
-                contentType: "application/json", //You should state request's content type using MIME types
-                data: JSON.stringify(itemOb), // format js object to valid json string
-                success: function (res) {
-                    if (res.code == 200) { // process is  ok
-                        alert("Successfully Updated");
-                        loadAllItems();
-                    }
-                },
-                error: function (ob) {
-                    alert(ob.responseJSON.message);
+    //============Item Form==============================
+    var itemurl = "http://localhost:8080/CourceWork_war_exploded/item";
+
+    loadAllItems();
+
+    $("#btnSaveItem").click(function () {
+        saveItem();
+    });
+    $("#btnUpdateItem").click(function () {
+        updateItem();
+    });
+    $("#btnDeleteItem").click(function () {
+        deleteItem();
+    });
+
+    function loadAllItems() {
+        $("#itemTable").empty();
+        $.ajax({
+            url: itemurl,
+            method: "GET",
+            // dataType:"json", // please convert the response into JSON
+            success: function (resp) {
+
+                for (const item of resp.data) {
+                    let row = `<tr><td>${item.icode}</td><td>${item.iname}</td><td>${item.iqty}</td><td>${item.iprice}</td></tr>`;
+                    $("#itemTable").append(row);
                 }
-            });
-        }
-
-        function deleteItem() {
-            // Get the customer id
-            let itemcode = $("#itemCode").val();
-
-            // initiate the request
-            $.ajax({
-                url: itemurl + "?id=" + itemcode,// viya query string
-                method: "DELETE",
-                //data:data,// application/x-www-form-urlencoded
-                success: function (res) {
-                    if (res.code == 200) {
-                        alert("Item Successfully Deleted");
-                        loadAllItems();
-                    }
-                },
-                error: function (ob) {
-                    alert(ob.responseJSON.message);
-                }
-            });
-
-        }
-
-        //Bind click events to the table rows
-        function bindClickEvents() {
-            $("#tblCustomerJson>tr").click(function () {
-                //Get values from the selected row
-                let id = $(this).children().eq(0).text();
-                let name = $(this).children().eq(1).text();
-                let address = $(this).children().eq(2).text();
-                let salary = $(this).children().eq(3).text();
-
-                //Set values to the text-fields
-                $("#cusID").val(id);
-                $("#cusName").val(name);
-                $("#cusAddress").val(address);
-                $("#cusSalary").val(salary);
-            });
-        }
-            function bindClickEventsItem() {
-                $("#itemTable>tr").click(function () {
-                    //Get values from the selected row
-                    let code = $(this).children().eq(0).text();
-                    let name = $(this).children().eq(1).text();
-                    let qty = $(this).children().eq(2).text();
-                    let price = $(this).children().eq(3).text();
-
-                    //Set values to the text-fields
-                    $("#itemCode").val(code);
-                    $("#itemName").val(name);
-                    $("#itemQty").val(qty);
-                    $("#itemPrice").val(price);
-                });
+                bindClickEventsItem();
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
             }
+        });
+    }
+
+    function saveItem() {
+        var serialize = $("#itemForm").serialize();
+        $.ajax({
+            url: itemurl,
+            method: "POST",
+            data: serialize,
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Successfullly Item Save");
+                    loadAllItems();
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    function updateItem() {
+        var itemOb = {
+            code: $("#itemCode").val(),
+            name: $("#itemName").val(),
+            qty: $("#itemQty").val(),
+            price: $("#itemPrice").val()
+        }
+
+        $.ajax({
+            url: itemurl,
+            method: "PUT",
+            contentType: "application/json", //You should state request's content type using MIME types
+            data: JSON.stringify(itemOb), // format js object to valid json string
+            success: function (res) {
+                if (res.code == 200) { // process is  ok
+                    alert("Successfully Updated");
+                    loadAllItems();
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    function deleteItem() {
+        // Get the customer id
+        let itemcode = $("#itemCode").val();
+
+        // initiate the request
+        $.ajax({
+            url: itemurl + "?id=" + itemcode,// viya query string
+            method: "DELETE",
+            //data:data,// application/x-www-form-urlencoded
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Item Successfully Deleted");
+                    loadAllItems();
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+
+    }
+
+    //================================Order form=================================
+    function searchOrderCustomer() {
+        //var customerID=$("#cusID").val();
+
+        var customerID = $("#orderCustomerID").val();
+
+        $.ajax({
+            url: url + "/" + customerID,
+            method: "GET",
+            success: function (res) {
+                if (res.code = 200) {
+                    var customer = res.data;
+                    $("#orderCustomerID").val(customer.id);
+                    $("#orderCustomerName").val(customer.name);
+                    $("#orderCustomerAddress").val(customer.address);
+                    $("#orderCustomerSalary").val(customer.salary);
+                } else {
+                    clearForm();
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    //Bind click events to the table rows
+    function bindClickEvents() {
+        $("#tblCustomerJson>tr").click(function () {
+            //Get values from the selected row
+            let id = $(this).children().eq(0).text();
+            let name = $(this).children().eq(1).text();
+            let address = $(this).children().eq(2).text();
+            let salary = $(this).children().eq(3).text();
+
+            //Set values to the text-fields
+            $("#cusID").val(id);
+            $("#cusName").val(name);
+            $("#cusAddress").val(address);
+            $("#cusSalary").val(salary);
+        });
+    }
+
+    function bindClickEventsItem() {
+        $("#itemTable>tr").click(function () {
+            //Get values from the selected row
+            let code = $(this).children().eq(0).text();
+            let name = $(this).children().eq(1).text();
+            let qty = $(this).children().eq(2).text();
+            let price = $(this).children().eq(3).text();
+
+            //Set values to the text-fields
+            $("#itemCode").val(code);
+            $("#itemName").val(name);
+            $("#itemQty").val(qty);
+            $("#itemPrice").val(price);
+        });
+    }
 </script>
 </body>
 </html>
