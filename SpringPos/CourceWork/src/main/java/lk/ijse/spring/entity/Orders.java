@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @ToString
 @Entity
-public class orders {
+public class Orders {
     @Id
     private String oid;
     private LocalDate date;

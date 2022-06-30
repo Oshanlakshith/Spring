@@ -17,6 +17,7 @@ import javax.persistence.*;
 @Entity
 @ToString
 @IdClass(OrderItem_PK.class)
+
 public class OrderDetails {
     @Id
     private String oid;
@@ -28,7 +29,7 @@ public class OrderDetails {
     //Out-Verse
     @ManyToOne
     @JoinColumn(name = "oid",referencedColumnName = "oid",insertable = false,updatable = false)
-    private orders orders;
+    private Orders orders;
 
     //Out-verse
     @ManyToOne

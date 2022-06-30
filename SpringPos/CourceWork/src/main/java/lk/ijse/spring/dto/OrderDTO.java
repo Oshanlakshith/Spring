@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @ToString
-public class orderDTO {
+public class OrderDTO {
     private String oid;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;

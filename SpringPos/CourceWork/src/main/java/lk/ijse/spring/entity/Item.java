@@ -17,7 +17,7 @@ public class Item {
     @Id
     private String icode;
     private String iname;
-    private String iqty;
+    private int iqty;
     private Double iprice;
 
 }
