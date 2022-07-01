@@ -269,193 +269,197 @@
 
 <!--Order Content Start-->
 <section class="container-fluid" id="orderContent">
-    <div class="container-fluid mt-4">
-        <!--main tile-->
-        <div class="jumbotron pt-4">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-header bg-primary font-weight-bolder">Invoice Details</div>
-                        <div class="card-body">
-                            <form>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>Order ID :</label>
-                                            <input class="form-control" id="txtOrderID" type="text">
-                                            <span class="control-error"
-                                                  id="orderId-invalid-error"></span>
+        <div class="container-fluid mt-4">
+            <!--main tile-->
+            <div class="jumbotron pt-4">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header bg-primary font-weight-bolder">Invoice Details</div>
+                            <div class="card-body">
+                                <form id="orderform">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>Order ID :</label>
+                                                <input class="form-control" id="txtOrderID" type="text">
+                                                <span class="control-error"
+                                                      id="orderId-invalid-error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>Date :</label>
+                                                <input class="form-control" id="txtDate" type="date">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>Date :</label>
-                                            <input class="form-control" id="txtDate" type="date">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="txtOrderID">Customer ID</label>
+                                                <input class="form-control" id="orderCustomerID">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label for="txtOrderID">Customer ID</label>
-                                            <input class="form-control" id="orderCustomerID">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>Name :</label>
+                                                <input class="form-control" id="orderCustomerName" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>Salary :</label>
+                                                <input class="form-control" id="orderCustomerSalary" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Address :</label>
+                                                <input class="form-control" id="orderCustomerAddress" type="text">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>Name :</label>
-                                            <input class="form-control" id="orderCustomerName" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>Salary :</label>
-                                            <input class="form-control" id="orderCustomerSalary" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Address :</label>
-                                            <input class="form-control" id="orderCustomerAddress" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-5 mt-lg-0 mt-3">
-                    <div class="card">
-                        <div class="card-header bg-primary  font-weight-bolder">Item Select</div>
-                        <div class="card-body">
-                            <form>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>Item :</label>
-                                            <select class="form-control" id="selectItemCode"></select>
-                                            <span class="control-error"
-                                                  id="item-empty-error"></span>
+                    <div class="col-lg-5 mt-lg-0 mt-3">
+                        <div class="card">
+                            <div class="card-header bg-primary  font-weight-bolder">Item Select</div>
+                            <div class="card-body">
+
+                                <form id="OrderitemForm">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>Item :</label>
+                                                <select class="form-control" id="selectItemCode"></select>
+                                                <span class="control-error"
+                                                      id="item-empty-error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>Item Code :</label>
+                                                <input class="form-control" id="txtItemCode" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <label>Item Name :</label>
+                                                <input class="form-control" id="txtItemDescription" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label class="">Price :</label>
+                                                <input class="form-control" id="txtItemPrice" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label class="">QtyOnH :</label>
+                                                <input class="form-control" id="txtQTYOnHand" type="text">
+                                            </div>
+                                        </div>
+                                        <hr class="mt-4">
+                                        <hr>
+                                        <div class="col-12 mt-4">
+                                            <div class="form-group">
+                                                <label>Order Quantity :</label>
+                                                <input class="form-control" id="txtQty" min="1" type="number">
+                                                <span class="control-error" id="order-qty-empty-error"></span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label>Item Code :</label>
-                                            <input class="form-control" id="txtItemCode" type="text">
-                                        </div>
+                                    <div class="form-group text-right">
+                                        <button class="btn btn-danger col-12 col-sm-auto mt-1" id="btnAddToCalculate"
+                                                type="button">
+                                            Add Item
+                                        </button>
                                     </div>
-                                    <div class="col-5">
-                                        <div class="form-group">
-                                            <label>Item Name :</label>
-                                            <input class="form-control" id="txtItemDescription" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label class="">Price :</label>
-                                            <input class="form-control" id="txtItemPrice" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="form-group">
-                                            <label class="">QtyOnH :</label>
-                                            <input class="form-control" id="txtQTYOnHand" type="text">
-                                        </div>
-                                    </div>
-                                    <hr class="mt-4">
-                                    <hr>
-                                    <div class="col-12 mt-4">
-                                        <div class="form-group">
-                                            <label>Order Quantity :</label>
-                                            <input class="form-control" id="txtQty" min="1" type="number">
-                                            <span class="control-error" id="order-qty-empty-error"></span>
-                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <section class="content-box-2 p-4 ">
+                            <div class="row">
+                                <form id="purchesForm">
+                                <div class="col-12">
+                                    <div class="row">
                                     </div>
                                 </div>
-                                <div class="form-group text-right">
-                                    <button class="btn btn-danger col-12 col-sm-auto mt-1" id="btnAddToTable"
-                                            type="button">
-                                        Add Item
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <span id="total1">Total : </span>
+                                        </div>
+                                        <div class="col-12">
+                                            <input class="form-control" id="subTotal" type="number">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-6 mt-2">
+                                    <div class="form-group">
+                                        <label>Cash</label>
+                                        <input class="form-control" id="txtCash" min="0" type="number">
+                                        <span class="control-error"
+                                              id="cash-empty-error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-6 mt-2">
+                                    <div class="form-group">
+                                        <label>Discount</label>
+                                        <input class="form-control" id="txtDiscount" min="0" type="number">
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label>Balance</label>
+                                        <input class="form-control" id="txtBalance" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-success mt-3" id="btnSubmitOrder" type="button">Purchase
                                     </button>
                                 </div>
-                            </form>
-                        </div>
+                                </form>
+                            </div>
+                        </section>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <section class="content-box-2 p-4 ">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <span class="" id="total-text">Total : </span>
-                                    </div>
-                                    <div class="col-12">
-                                        <span id="total">00.0</span> Rs/=
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <span id="total-text1">SubTotal : </span>
-                                    </div>
-                                    <div class="col-12">
-                                        <span id="subtotal">00.0</span> Rs/=
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-6 mt-2">
-                                <div class="form-group">
-                                    <label>Cash</label>
-                                    <input class="form-control" id="txtCash" min="0" type="number">
-                                    <span class="control-error"
-                                          id="cash-empty-error"></span>
-                                </div>
-                            </div>
-                            <div class="col-6 mt-2">
-                                <div class="form-group">
-                                    <label>Discount</label>
-                                    <input class="form-control" id="txtDiscount" min="0" type="number">
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <div class="form-group">
-                                    <label>Balance</label>
-                                    <input class="form-control" id="txtBalance" type="text">
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <button class="btn btn-success mt-3" id="btnSubmitOrder" type="button">Purchase</button>
-                            </div>
-                        </div>
-                    </section>
+                <!--order table-->
+                <div class="col-md-12 mt-4" style="height:180px; overflow-y: scroll">
+                    <table class="table">
+                        <thead class="bg-danger text-white">
+                        <tr>
+                            <th>Order Id</th>
+                            <th>Item Code</th>
+                            <th>Customer Name</th>
+                            <th>Item Qty</th>
+                            <th>Item Price</th>
+                        </tr>
+                        </thead>
+                        <tbody id="ordertable">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <!---------->
             </div>
-            <!--order table-->
-            <div class="col-md-12 mt-4" style="height:180px; overflow-y: scroll">
-                <table class="table table-bordered text-white">
-                    <thead class="bg-primary">
-                    <tr>
-                        <th>Item Code</th>
-                        <th>Item Name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                    </tr>
-                    </thead>
-                    <tbody class="bg-light text-dark" id="orderTable">
-
-                    </tbody>
-                </table>
-            </div>
-            <!---------->
         </div>
-    </div>
+
 </section>
 <!--Order Content Ended-->
 
@@ -512,6 +516,8 @@
 
     loadAllCustomers();
     generateCustomerId();
+    loadOrderTable();
+
     //====================save customer======================
 
     $("#btnSaveCustomer").click(function () {
@@ -787,6 +793,18 @@
     }
 
     //================================Order form=================================
+
+
+    $("#btnAddToCalculate").click(function () {
+        Total();
+    });
+
+    $("#txtCash").on("keypress", function (e) {
+        if (e.key == "Enter") {
+            Balance();
+        }
+    });
+
     function searchOrderCustomer() {
         //var customerID=$("#cusID").val();
 
@@ -804,6 +822,50 @@
                     $("#orderCustomerSalary").val(customer.salary);
                 } else {
                     clearForm();
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    //  var orderUrl = "http://localhost:8080/CourceWork_war_exploded/Order";
+
+    function loadOrderTable() {
+        $("#ordertable").empty();
+        $.ajax({
+            url: "http://localhost:8080/CourceWork_war_exploded/Order",
+            method: "GET",
+            // dataType:"json", // please convert the response into JSON
+            success: function (resp) {
+
+                for (const order of resp.data) {
+                    let row = `<tr><td>${order.oid}</td><td>${order.itemCode}</td><td>${order.customer.name}</td><td>${order.itemCode}</td><td>${order.unitPrice}</td></tr>`;
+                    $("#ordertable").append(row);
+                }
+                bindClickEvents();
+                clearForm();
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    $("#btnSubmitOrder").click(function () {
+        purchesOrder();
+    });
+
+    function purchesOrder() {
+        $.ajax({
+            url: "http://localhost:8080/CourceWork_war_exploded/Order",
+            method: "POST",
+            data: serialize,
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Successfullly Order Save");
+                    loadOrderTable();
                 }
             },
             error: function (ob) {
@@ -844,6 +906,19 @@
             $("#itemPrice").val(price);
         });
     }
+
+    function Total() {
+        var qty = $("#txtQty").val();
+        var uPrice = $("#txtItemPrice").val();
+        $("#subTotal").val(uPrice * qty);
+    }
+
+    function Balance() {
+        var total = $("#subTotal").val();
+        var cash = $("#txtCash").val();
+        $("#txtBalance").val(cash - total);
+    }
+
 </script>
 </body>
 </html>
